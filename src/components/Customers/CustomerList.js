@@ -64,36 +64,89 @@ import Swal from 'sweetalert2'
 
 function CustomerList(props){
 
-const handleRemove=(id)=>{
-const confirmRemove=window.confirm('are you sure')
-if(confirmRemove){
-props.dispatch(startRemoveCustomer(id))
+const handleRemove = (id) => {
+    //const confirmRemove = window.confirm("Are you sure?")
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+          props.dispatch(startRemoveCustomer(id))
+        }
+        
+      })
 }
-    }
-    console.log("customer props",props)
-    if (props.customers.length == 0 ){
-        // console.log("insode if")
-       props.dispatch(startSetCustomers())
-    }
-
-    return(
+if(props.customers.length == 0){
+    props.dispatch(startSetCustomers())
+}
+return(
     <div>
-        <h2>Listing customers-{props.customers.length}</h2>
-        <ul>
-            {props.customers.map(customer=>{
-                return <li key={customer._id}><Link to={`/customers/${customer._id}`}>{customer.name}</Link>
-                <button onClick={()=>{handleRemove(customer._id)}}>remove</button></li>
-            })}
-        </ul>
-        <Link to='/customers/new'>Add customer</Link>
+        {
+            props.customers ? (
+                <div>
+                    <h2>Listing Customers-{props.customers.length}</h2>
+        <table className="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Mobile</th>
+                    <th scope="col">Actions</th>
+                    <th scope="col">Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    props.customers.map(customer => {
+                        return <tr key={customer._id}>
+                             <td>{customer._id}</td>
+                             <td>{customer.name}</td>
+                             <td>{customer.email}</td>
+                             <td>{customer.mobile}</td>
+                           
+                           <td>
+                           <Link to={`/customers/${customer._id}`}>
+                                <button>Show</button></Link>
+                            </td>
+                            <td>
+                               <button onClick={() => {
+                                 handleRemove(customer._id)
+                                  }}>
+                                      Remove
+                                </button>
+                            </td>
+                        </tr>
+                    })
+                }
+            </tbody>
+        </table>
+        <h4><Link to="/customers/new">Add Customer</Link></h4>
         </div>
-    )
-}
-const mapStateToProps=(state)=>{
-    return{
-        customers:state.customers
-}
-}
 
+            ) :(
+                <div>
+                    <p>loading....</p>
+                </div>
+            )
+        }
+    </div>
+)
+}
+const mapStateToProps = (state) => {
+return {
+    customers : state.customers
+}
+}
 
 export default connect(mapStateToProps)(CustomerList)

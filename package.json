@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.9.5",
     "axios": "^0.19.2",
+    "bootstrap": "^4.4.1",
     "cra-template": "1.0.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
@@ -12,7 +14,8 @@
     "react-scripts": "^2.1.8",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "sweetalert2": "^9.8.2"
+    "sweetalert2": "^9.8.2",
+    "typeface-roboto": "0.0.75"
   },
   "scripts": {
     "start": "react-scripts start",

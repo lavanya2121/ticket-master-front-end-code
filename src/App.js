@@ -87,6 +87,11 @@ import DepartmentShow from './components/Departments/DepartmentShow'
 import DepartmentNew from './components/Departments/DepartmentNew'
 import DepartmentEdit from './components/Departments/DepartmentEdit'
 
+import EmployeeList from './components/Employees/EmployeeList'
+import EmployeeShow from './components/Employees/EmployeeShow'
+import EmployeeNew from './components/Employees/EmployeeNew'
+import EmployeeEdit from './components/Employees/EmployeeEdit'
+
 
 function App(props) {
  
@@ -111,6 +116,7 @@ function App(props) {
                             <div>
                                 <Link to='/customers'>Customers</Link>
                                 <Link to='/departments'>Departments</Link>
+                                <Link to='/employees'>Employees</Link>
                                 <Link to="/users/account">account</Link>
                                 <Link to="#" onClick={()=>{
                                     handleLogout()//inline function
@@ -140,6 +146,13 @@ function App(props) {
                   <Route path="/departments/new" component={DepartmentNew}/>
                   <Route path="/departments/edit/:id" component={DepartmentEdit} />
                   <Route path="/departments/:id" component={DepartmentShow} />
+
+                  {/* Employees Routes */}
+                  <Route path="/employees" component={EmployeeList} exact={true}/>
+                  <Route path="/employees/new" component={EmployeeNew} exact={true}/>
+                  <Route path="/employees/edit/:id" component={EmployeeEdit} exact={true}/>
+                  <Route path="/employees/:id" component={EmployeeShow}/>
+
                   </Switch>
             </div>
         </BrowserRouter>
